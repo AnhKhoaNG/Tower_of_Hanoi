@@ -1,13 +1,16 @@
 moves=0
+
 answer = []
-import cmd
 def main():
-    
     disks = int(input("Enter your number of disks:"))
     tower_of_hanoi(disks,"Start","Dest","A1","A2","A3")
-    for i in range(len(answer)):
-        print(answer[i])
-    print("Total moves:", moves)
+    if moves >100:
+        print("First 10 moves: ", answer[0:10], end= '\n\n')
+        print("Last 10 moves:", answer[-10:])
+    else:
+        for i in range(len(answer)):
+            print(answer[i])
+            print("Total moves:", moves)
 def tower_of_hanoi(disk, start,dest,a1,a2,a3):
     if disk ==1:
         move(disk,start,dest)
@@ -15,7 +18,6 @@ def tower_of_hanoi(disk, start,dest,a1,a2,a3):
         start_to_a3(disk-1,start,dest,a1,a2,a3)
         move(disk,start,dest)
         a3_to_dest(disk-1,a3,a2,a1,dest)
-        
 def start_to_a3(disk,start,dest,a1,a2,a3):
     if disk==1:
         move(disk,start,dest)
@@ -42,7 +44,6 @@ def a3_to_dest(disk,a3,a2,a1,dest):
         dest_to_a3(disk-1,dest,a1,a2,a3)
         move(disk,a1,dest)
         a3_to_dest(disk-1,a3,a2,a1,dest)
-        
 def dest_to_a3(disk,dest,a1,a2,a3):
     if disk ==1:
         move(disk,dest,a1)
@@ -55,8 +56,6 @@ def dest_to_a3(disk,dest,a1,a2,a3):
         a3_to_dest(disk-1,a3,a2,a1,dest)
         move(disk,a2,a3)
         dest_to_a3(disk-1,dest,a1,a2,a3)
-        
-
 def move(disk,start,dest):
     global moves
     moves+=1
